@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Electron boilerplate</title>
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Electron boilerplate</h1>
+      </header>
+      <section id="main"></section>
+      <footer></footer>
+    </div>
+    <script>
+      document.getElementById('main').innerHTML = `window ${window.__args__ ? window.__args__.index : '?'}`;
+      const Wendy = require('electron').remote.require('../index')
+      Wendy.emit('my-event', {
+        data: 'some data '+ (window.__args__ ? window.__args__.index : '?'),
+        target: 'win 1',
+        emittedBy: require('electron').remote.getCurrentWindow()
+      });
+    </script>
+  </body>
+</html>
