@@ -1,5 +1,5 @@
 const eventEmitter = new (require('events').EventEmitter)()
-const electron = require('electron')
+const {dialog} = require('electron')
 const winmanager = require('electron-window')
 
 let  Wendy = {
@@ -47,6 +47,12 @@ let  Wendy = {
   _loadURLWithArgs:  winmanager._loadURLWithArgs,
   _loadUrlWithArgs: winmanager._loadURLWithArgs, // backwards-compatibility
   _unref: winmanager._unref,
+
+  // Aliases for Electron dialog helpers
+  showOpenDialog: dialog.showOpenDialog,
+  showSaveDialog: dialog.showSaveDialog,
+  showMessageBox: dialog.showMessageBox,
+  showErrorBox: dialog.showErrorBox
 }
 
 module.exports = Wendy
