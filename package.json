@@ -1,0 +1,32 @@
+{
+  "name": "electron-wendy",
+  "version": "0.1.0",
+  "description": "A window manager for your Electron apps !",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nash403/electron-wendy.git"
+  },
+  "keywords": [
+    "electron",
+    "window",
+    "manager",
+    "BrowserWindow",
+    "communication",
+    "modal",
+    "dialog"
+  ],
+  "author": "Honoré Nintunze <nash403@outlook.fr>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nash403/electron-wendy/issues"
+  },
+  "homepage": "https://github.com/nash403/electron-wendy#readme",
+  "devDependencies": {
+    "electron": "^1.4.15",
+    "electron-window": "^0.8.1"
+  }
+}
