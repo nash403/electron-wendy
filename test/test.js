@@ -4,7 +4,7 @@ const path = require('path')
 const Wendy = require('../index')
 
 // prevent window being garbage collected
-let win1, win2, win3, winUnamed, winTest
+let win1, win2, win3, winUnamed, winTest, mod
 
 function createMainWindow(name) {
   const win = Wendy.create(name,{width: 600, height:400})
@@ -22,7 +22,7 @@ app.on('ready', () => {
   win1 = createMainWindow('win 1')
   win2 = createMainWindow('win 2')
   win3 = createMainWindow('win 3')
-  winUnamed = Wendy.create({width: 600, height:400})
+  winUnamed = Wendy.create()
   winUnamed.showUrl(path.join(__dirname,'test.html'), {index: 'unamed'}, ()=>{})
   console.log(`app get window by id of 'win 2' => ${Wendy.getById(win2.id).winName}`)
   console.log(`app has window 'win 2' ? => ${Wendy.has('win 2')}`)

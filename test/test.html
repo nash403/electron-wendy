@@ -3,16 +3,40 @@
   <head>
     <meta charset="utf-8">
     <title>Electron boilerplate</title>
-    <link rel="stylesheet" href="index.css">
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        font-family: -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+      }
+
+      header {
+        position: absolute;
+        width: 500px;
+        height: 250px;
+        top: 50%;
+        left: 50%;
+        margin-top: -125px;
+        margin-left: -250px;
+        text-align: center;
+      }
+
+      header h1 {
+        font-size: 60px;
+        font-weight: 100;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1>Electron boilerplate</h1>
-      </header>
-      <section id="main"></section>
-      <footer></footer>
-    </div>
+    <header>
+      <h1>Electron boilerplate (<span id="main"></span>)</h1>
+    </header>
     <script>
       document.getElementById('main').innerHTML = `window ${window.__args__ ? window.__args__.index : '?'}`;
       const Wendy = require('electron').remote.require('../index')
@@ -20,7 +44,8 @@
         data: 'some data '+ (window.__args__ ? window.__args__.index : '?'),
         target: 'win 1',
         emittedBy: require('electron').remote.getCurrentWindow()
-      });
+      })
+      console.log(window)
     </script>
   </body>
 </html>
