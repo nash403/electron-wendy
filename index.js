@@ -178,7 +178,7 @@ let  Wendy = {
    */
   remove(win) {
     let toremove = winmanager.windows[Object.keys(winmanager.windows).find(key => {
-        return winmanager.windows[key] === win.id
+        return winmanager.windows[key] === win
     })]
     if (toremove) toremove.unref()
   },
