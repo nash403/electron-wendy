@@ -25,6 +25,13 @@ let  Wendy = {
     return this
   },
   /**
+   * Registers a one time listener with the given {evName} and {callback}.
+   */
+  once (evName, callback) {
+    this.emitter.once(evName, callback)
+    return this
+  },
+  /**
    * Removes the listener for the given {evName} and {handler}.
    *
    * @param {string} evName
@@ -35,7 +42,6 @@ let  Wendy = {
     this.emitter.removeListener(evName, handler)
     return this
   },
-
   /**
    * Emits an event.
    *
@@ -55,7 +61,7 @@ let  Wendy = {
       sourceWin = options.emittedBy
     }
     this.emitter.emit(evName, {
-      emittedBy: this.getName(sourceWin),
+      emittedBy: this.getName(sourceWin) || sourceWin,
       target,
       data,
       name: evName
@@ -63,25 +69,48 @@ let  Wendy = {
     return this
   },
   /**
-   * Creates a BrowserWindow instance, and returns it. The {options} argument can take every
+   * Creates a BrowserWindow instance with default width 600 and height 400, and returns it. The {options} argument can take every
    * option that BrowserWindow can take. This method will consider {name} as {options} if it is not a string.
    *
-   * @param {string} name - the name to assign to the created window
-   * @param {object} options - any {BrowserWindow} options.
+   * @param {string} [name] - the name to assign to the created window
+   * @param {object} [options] - any {BrowserWindow} options.
    * NOTE: {BrowserWindow.showUrl} from the newly created window instance takes care of showing the window after
    * the renderer process has done drawing for the first time so you don't need to set {options.show = true}
    * @returns {BrowserWindow}
    */
   create(name, options) {
     if (typeof name !== 'string') {
-      options = name
+      options = name || {}
       name = null
     }
-    let win = winmanager.createWindow(options);
+    let win = winmanager.createWindow(Object.assign({width:600,height:400},options));
     if (name) {
       win.winName = name
     }
     return win
+  },
+  /**
+   * Creates a BrowserWindow instance as a modal with default width 400 and height 250, and returns it.
+   * This method uses {create} to create the modal window
+   *
+   * @param {BrowserWindow} parent - the parent window
+   * @param {string} [name] - the name to assign to the created modal
+   * @param {object} [options] - same as {create}
+   * @returns {BrowserWindow}
+   */
+  createModal(parent, name, options) {
+    if (typeof parent !== 'object') {
+      throw new Error('Modal window must have a parent window')
+    }
+    if (typeof name !== 'string') {
+      options = name || {}
+      name = null
+    }
+    let args = []
+    if (name) args.push(name)
+    if (options) args.push(Object.assign({modal:true, parent, width: 400, height: 250},options))
+
+    return this.create(...args)
   },
   /**
    * Takes a BrowserWindow and returns the name it's stored under or null otherwise.
