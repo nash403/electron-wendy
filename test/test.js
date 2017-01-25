@@ -4,7 +4,7 @@ const path = require('path')
 const Wendy = require('../index')
 
 // prevent window being garbage collected
-let win1, win2, win3, winTest
+let win1, win2, win3, winUnamed, winTest
 
 function createMainWindow(name) {
   const win = Wendy.create(name,{width: 600, height:400})
@@ -15,14 +15,16 @@ function createMainWindow(name) {
 }
 
 app.on('window-all-closed', () => {
-  console.log('closing app',Wendy.windows)
   app.quit();
 });
 
 app.on('ready', () => {
-  win1 = createMainWindow('win 1');
-  win2 = createMainWindow('win 2');
-  win3 = createMainWindow('win 3');
+  win1 = createMainWindow('win 1')
+  win2 = createMainWindow('win 2')
+  win3 = createMainWindow('win 3')
+  winUnamed = Wendy.create({width: 600, height:400})
+  winUnamed.showUrl(path.join(__dirname,'test.html'), {index: 'unamed'}, ()=>{})
+  console.log(`app get window by id of 'win 2' => ${Wendy.getById(win2.id).winName}`)
   console.log(`app has window 'win 2' ? => ${Wendy.has('win 2')}`)
   console.log(`app has window 'inexistant' ? => ${Wendy.has('inexistant')}`)
 
@@ -35,15 +37,15 @@ app.on('ready', () => {
     width: 600,
     height: 400
   });
-  winTest.loadURL(`file://${__dirname}/test.html`);
+  winTest.loadURL(`file://${__dirname}/test.html`)
   Wendy.add(winTest, 'test')
   console.log(`app has window 'test' ? => ${Wendy.has('test')}`)
 
   // Keep reference to handler to remove it later on. 
   function handler (event) {
-    console.log(`${event.name} / ${event.data} / ${event.target} / ${event.emittedBy}`);
+    console.log(`${event.name} / ${event.data} / ${event.target} / ${event.emittedBy}`)
   };
   
   // Registering listener. 
-  Wendy.on('my-event', handler);
+  Wendy.on('my-event', handler)
 });
