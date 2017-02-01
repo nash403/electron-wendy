@@ -43,7 +43,7 @@ app.on('ready', () => {
 
   // Keep reference to handler to remove it later on. 
   function handler (event) {
-    console.log(`${event.name} / ${event.data} / ${event.target} / ${event.emittedBy}`)
+    console.log(`${event.name} / ${event.data} / ${event.target} / ${Wendy.getName(event.emittedBy)}`)
   };
   
   // Registering listener. 
