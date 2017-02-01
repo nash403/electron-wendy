@@ -117,6 +117,25 @@ let  Wendy = {
     return this.create(...args)
   },
   /**
+   * Creates a modal window as {createModal} would but also registers a listener to handle a response from this modal.
+   * In the modal window you'll have to send (via ipcRenderer) the response to the main process on a given channel. You must call window.close()
+   * right after that. In the parent window you have to listen (preferably once and in a function call) to that channel.
+   * 
+   * NOTE: In the parent window you have to call "<CurrentWindowInstance>.on" to receive the response and not "ipcRenderer.on" !!
+   * 
+   * @param {BrowserWindow} parent - the parent window
+   * @param {string} [evName] - the name of the channel on which the modal will respond. Default is 'md-response'
+   * @param {string} [name] - the name to assign to the created modal
+   * @param {object} [options] - same as {create}
+   */
+  createModalWithResponse(parent, evName, name, options) {
+    if (!!!evName) evName = 'md-response'
+    ipcMain.once(evName, (ev,...arg)=>{
+      parent.emit(evName, ...arg)
+    })
+    return this.createModal(parent, name, options)
+  },
+  /**
    * Takes a BrowserWindow and returns the name it's stored under or null otherwise.
    *
    * @param {BrowserWindow} win
