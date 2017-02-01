@@ -47,25 +47,22 @@ let  Wendy = {
    *
    * @param {string} evName
    * @param {object} [options]
-   * @param {*} [options.data]
    * @param {string | BrowserWindow} [options.target] - The name of the target window or the targeted window itself.
    * @param {BrowserWindow} [options.emittedBy] - The window that sent the event.
+   * @param {*} ...arg - the rest of the arguments 
    * @returns {Wendy}
    */
-  emit (evName, options) {
-    let data, target, sourceWin
+  emit (evName, options, ...arg) {
+    let target
 
-    if (options !== undefined && options !== null && typeof options === 'object') {
-      data = options.data
+    if (!!options && typeof options === 'object') {
       target = typeof options.target === 'string' ? options.target : ( this.getName(options.target) || options.target )
-      sourceWin = options.emittedBy
     }
     this.emitter.emit(evName, {
-      emittedBy: this.getName(sourceWin) || sourceWin,
+      emittedBy: options.emittedBy,
       target,
-      data,
       name: evName
-    })
+    }, ...arg)
     return this
   },
   /**
