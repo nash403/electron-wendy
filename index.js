@@ -74,6 +74,9 @@ let  Wendy = {
    *
    * @param {string} [name] - the name to assign to the created window
    * @param {object} [options] - any {BrowserWindow} options.
+   * @param {boolean} [options.showNow] - option that tells Wendy to call showUrl on the window immediately after creating it.
+   * If set to true you must also set [options.showPath] and optionnaly [options.showArgs] & [options.showCb]
+   * 
    * NOTE: {BrowserWindow.showUrl} from the newly created window instance takes care of showing the window after
    * the renderer process has done drawing for the first time so you don't need to set {options.show = true}
    * @returns {BrowserWindow}
@@ -86,6 +89,10 @@ let  Wendy = {
     let win = winmanager.createWindow(Object.assign({width:600,height:400},options));
     if (name) {
       win.winName = name
+    }
+    let now = !!options.showNow
+    if (now) {
+      win.showUrl(options.showPath, options.showArgs, options.showCb)
     }
     return win
   },
