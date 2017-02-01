@@ -189,6 +189,13 @@ let  Wendy = {
     })]
     if (toremove) toremove.unref()
   },
+  /**
+   * Replaces {name} window and creates a new one with the same name and with the options described by {newWinOptions}
+   */
+  replace(name, newWinOptions) {
+    this.remove(this.getByName(name))
+    return this.create(name, newWinOptions)
+  },
   // Aliases for the other 'electron-window' functions
   _loadURLWithArgs:  winmanager._loadURLWithArgs,
   _loadUrlWithArgs: winmanager._loadURLWithArgs, // backwards-compatibility
