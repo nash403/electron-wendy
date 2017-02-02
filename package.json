@@ -25,10 +25,8 @@
     "url": "https://github.com/nash403/electron-wendy/issues"
   },
   "homepage": "https://github.com/nash403/electron-wendy#readme",
-  "devDependencies": {
-    "electron": "^1.4.15"
-  },
   "dependencies": {
+    "electron": "^1.4.15",
     "electron-window": "^0.8.1"
   }
 }
