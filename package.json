@@ -1,6 +1,6 @@
 {
   "name": "electron-wendy",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A window manager for your Electron apps !",
   "main": "index.js",
   "scripts": {
